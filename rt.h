@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/04 22:50:37 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/05 17:49:48 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ typedef struct	s_sphere
 {
 	t_coord	center;
 	int		radius;
-	t_coord	radius;
+	t_coord	color;
 }				t_sphere;
 
 typedef struct	s_rt
@@ -39,6 +39,9 @@ typedef struct	s_rt
 	t_coord		vector;
 	t_sphere	sphere;
 	t_coord		viewport;
+	double		k1;
+	double		k2;
+	double		k3;
 }				t_rt;
 
 #endif

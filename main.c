@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 19:02:57 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/05 15:41:39 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/05 17:52:29 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,32 @@ t_coord		init_coord(double x, double y, double z)
 void		init_for_rt(t_rt *rt)
 {
 	rt->camera = init_coord(0, 0, 0);
-	rt->vw = 1;
 	rt->vz = 1;
 	rt->vh = 1;
-	rt->vector = init_coord();
 }
 
-void		dot_product(t_rt *rt)
+double		dot_product(t_coord a, t_coord b)
 {
+	return (a.x * b.x + a.y * b.y + a.z * b.z);
+}
 
+double		*intersection_ray_sphere(t_coord a, t_coord b, t_sphere s, t_rt *rt)
+{
+	double	t[2];
+	t_coord	c;
+	t_coord v;
+	int		r;
+	double	dis;
+
+	c = s.center;
+	r = s.radius;
+	v = init_coord(a.x - c.x, a.y - c.y, a.z - c.z);
+	rt->k1 = dot_product(b, b);
+	rt->k2 = 2 * dot_product(v, b);
+	rt->k3 = dot_product(v, v) - r * r;
+	dis = rt->k2 * rt->k2 - 4 * rt->k1 * rt->k3;
+	if ()
+	return (t);
 }
 
 void		raytracing(t_rt *rt)
