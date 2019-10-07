@@ -6,14 +6,14 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/06 21:46:52 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/07 20:52:09 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_H
 # define RT_H
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 1350
+# define HEIGHT 1350
 # define TMAX 2147483647
 # define TMIN 1
 # include <mlx.h>
@@ -31,8 +31,17 @@ typedef struct	s_sphere
 {
 	t_coord	center;
 	int		radius;
-	t_coord	color;
+	int 	color;
+	int		blesk;
 }				t_sphere;
+
+typedef struct	s_light
+{
+	double	intensity;
+	t_coord position;
+	int		type;
+}				t_light;
+
 
 typedef struct	s_rt
 {

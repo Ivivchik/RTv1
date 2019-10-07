@@ -26,6 +26,55 @@ double		dot_product(t_coord a, t_coord b)
 	return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
+double		len_vector(t_coord a)
+{
+	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
+}
+
+double		computer_lighting(t_coord p, t_coord n, t_coord v, int s)
+{
+	t_light l[3];
+	t_coord li;
+	t_coord r;
+	double i = 1;
+	double n_dot_l;
+	double r_dot_v;
+
+	l[0].intensity = 0.2;
+	l[0].type = 0;
+	l[1].intensity = 0.6;
+	l[1].position = init_coord(2, 1, 0);
+	l[1].type = 1;
+	l[2].intensity = 0.2;
+	l[2].position = init_coord(1, 4, 4);
+	l[2].type = 2;
+	int j = 0;
+	while (j < 3)
+	{
+		if (l[j].type == 0)
+			i = i + l[j].intensity;
+		else
+		{
+			if (l[j].type == 2)
+				li = init_coord(l[j].position.x - p.x, l[j].position.y - p.y, l[j].position.z - p.z);
+			else
+				li = init_coord(l[j].position.x, l[j].position.y, l[j].position.z);
+			n_dot_l = dot_product(n, li);
+			if (n_dot_l > 0)
+				i += l[j].intensity * n_dot_l / (len_vector(n) * len_vector(li));
+			if (s != -1)
+			{
+				r = init_coord(2 * n.x * dot_product(n, li) - li.x, 2 * n.y * dot_product(n, li) - li.y, 2 * n.z * dot_product(n, li) - li.z);
+				r_dot_v = dot_product(r, v);
+				if (r_dot_v > 0)
+					i += l[j].intensity + pow(r_dot_v / (len_vector(r) * len_vector(v)), s);
+			}
+		}
+		j++;
+	}
+	return (i);
+}
+
 double		*intersection_ray_sphere(t_coord a, t_coord b, t_sphere s)
 {
 	double	*t ;
@@ -62,41 +111,60 @@ double		*intersection_ray_sphere(t_coord a, t_coord b, t_sphere s)
 
 double		dot_color(t_coord a, t_coord b)
 {
-	int		close_t;
-	int		close_sph;
-	t_sphere s[3];
+	double		close_t;
+	double		close_sph;
+	t_coord p;
+	t_coord n;
+
+	t_sphere s[4];
 	double	*t;
 	int i = 0;
 	s[0].center = init_coord(0, 0, 10);
 	s[0].radius = 1;
-	s[0].color = init_coord(255, 0, 0);
+	s[0].color = 235;
+	s[0].blesk = 10;
 	s[1].center = init_coord(1, 0, 4);
 	s[1].radius = 1;
-	s[1].color = init_coord(7889, 0, 0);
+	s[1].color = 0x0FF000;
+	s[1].blesk = 10;
 	s[2].center = init_coord(-2, 0, 4);
 	s[2].radius = 1;
-	s[2].color = init_coord(45646546, 0, 0);
+	s[2].color = 0x0FF000;
+	s[2].blesk = -1;
+	s[3].center = init_coord(0, 5001, 0);
+	s[3].radius = 5000;
+	s[3].color = 300;
+	s[3].blesk = 10;
 
 	close_sph = 0;
 	close_t = TMAX;
-	while (i < 3)
+	int comp;
+	while (i < 4)
 	{
 		t = intersection_ray_sphere(a, b, s[i]);
 		if (t[0] >= TMIN && t[0] <= TMAX && t[0] < close_t)
 		{
 			close_t = t[0];
-			close_sph = s[i].color.x;
+			p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y, a.z + close_t * b.z);
+			n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y, p.z - s[i].center.z);
+			n = init_coord(n.x / len_vector(n), n.y / len_vector(n), n.z / len_vector(n));
+			comp = computer_lighting(p, n, init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
+			close_sph = s[i].color;
 		}
 		if (t[1] >= TMIN && t[1] <= TMAX && t[1] < close_t)
 		{
 			close_t = t[1];
-			close_sph = s[i].color.x;
+			p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y, a.z + close_t * b.z);
+			n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y, p.z - s[i].center.z);
+			n = init_coord(n.x / len_vector(n), n.y / len_vector(n), n.z / len_vector(n));
+			comp = computer_lighting(p, n, init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
+			close_sph = s[i].color;
 		}
 		i++;
 	}
 	if (close_sph == 0)
 			return (0);
-	return (close_sph);
+	return (close_sph * comp);
 }
 
 int main(void)
