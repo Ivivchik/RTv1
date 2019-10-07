@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/07 22:33:16 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/08 02:27:33 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ typedef struct	s_sphere
 {
 	t_coord	center;
 	double		radius;
-	int 	color;
+	t_coord 	color;
 	int		blesk;
 }				t_sphere;
 
@@ -39,7 +39,6 @@ typedef struct	s_light
 {
 	double	intensity;
 	t_coord position;
-	int		type;
 }				t_light;
 
 
