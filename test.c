@@ -38,21 +38,25 @@ double		sum_coord(t_coord a)
 
 double		computer_lighting(t_coord p, t_coord n) //, t_coord v, int s)
 {
-	t_light l[3];
+	t_light l[5];
 	t_coord li;
 	t_coord r;
 	double i = 0;
 	double n_dot_l;
 	double r_dot_v;
 
-	l[0].intensity = 0.1;
+	l[0].intensity = 1;
 	l[0].position = init_coord(0, 0, 0);
-	l[1].intensity = 0.5;
+	l[1].intensity = 0.2;
 	l[1].position = init_coord(0, 0, 0);
-	l[2].intensity = 0.5;
+	l[2].intensity = 0.2;
 	l[2].position = init_coord(5, 5, 0);
+	l[3].intensity = 0.2;
+	l[3].position = init_coord(5, 3, 0);
+	l[4].intensity = 0.2;
+	l[4].position = init_coord(5, 4, 0);
 	int j = 0;
-	while (j < 3)
+	while (j < 1)
 	{
 		li = init_coord(l[j].position.x - p.x, l[j].position.y - p.y, l[j].position.z - p.z);
 		n_dot_l = dot_product(li, n);
@@ -117,15 +121,15 @@ double		dot_color(t_coord a, t_coord b)
 	int i = 0;
 	s[0].center = init_coord(0, -1, 3);
 	s[0].radius = 1;
-	s[0].color = init_coord(0xffff00, 0xffff00, 0);
+	s[0].color = 0xffff00;
 	s[0].blesk = 10;
 	s[1].center = init_coord(2, 0, 4);
 	s[1].radius = 1;
-	s[1].color = init_coord(245, 255, 0);
+	s[1].color = 0x00ff00;
 	s[1].blesk = 10;
 	s[2].center = init_coord(-2, 0, 4);
 	s[2].radius = 1;
-	s[2].color = init_coord(255, 0, 0);
+	s[2].color = 0x0000ff;
 	s[2].blesk = -1;
 	// s[3].center = init_coord(0, -5001, 0);
 	// s[3].radius = 5000;
@@ -145,7 +149,7 @@ double		dot_color(t_coord a, t_coord b)
 			p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y, a.z + close_t * b.z);
 			n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y, p.z - s[i].center.z);
 			n = init_coord(n.x / len_vector(n), n.y / len_vector(n), n.z / len_vector(n));
-			close_sph = (s[i].color.x) * computer_lighting(p, n); //,init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
+			close_sph = (s[i].color) * computer_lighting(p, n); //,init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
 		}
 		if (t[1] >= TMIN && t[1] <= TMAX && t[1] < close_t)
 		{
@@ -153,7 +157,7 @@ double		dot_color(t_coord a, t_coord b)
 			p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y, a.z + close_t * b.z);
 			n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y, p.z - s[i].center.z);
 			n = init_coord(n.x / len_vector(n), n.y / len_vector(n), n.z / len_vector(n));
-			close_sph = (s[i].color.x) * computer_lighting(p, n); //, init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
+			close_sph = (s[i].color) * computer_lighting(p, n); //, init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
 		}
 		i++;
 	}
