@@ -36,7 +36,15 @@ double		sum_coord(t_coord a)
 	return (a.x + a.y + a.z);
 }
 
-double		computer_lighting(t_coord p, t_coord n) //, t_coord v, int s)
+t_coord		mult(t_coord a, double k)
+{
+	t_coord c;
+	c.x = a.x * k;
+	c.y = a.y * k;
+	c.z = a.z * k;
+	return (c);
+}
+double		computer_lighting(t_coord p, t_coord n, t_coord v, int s)
 {
 	t_light l[5];
 	t_coord li;
@@ -45,30 +53,26 @@ double		computer_lighting(t_coord p, t_coord n) //, t_coord v, int s)
 	double n_dot_l;
 	double r_dot_v;
 
-	l[0].intensity = 1;
+	l[0].intensity = 0.2;
 	l[0].position = init_coord(0, 0, 0);
-	l[1].intensity = 0.2;
-	l[1].position = init_coord(0, 0, 0);
-	l[2].intensity = 0.2;
-	l[2].position = init_coord(5, 5, 0);
-	l[3].intensity = 0.2;
-	l[3].position = init_coord(5, 3, 0);
-	l[4].intensity = 0.2;
-	l[4].position = init_coord(5, 4, 0);
+	l[1].intensity = 0.3;
+	l[1].position = init_coord(2, 1, 0);
+	l[2].intensity = 0.3;
+	l[2].position = init_coord(1, 4, 4);
 	int j = 0;
-	while (j < 1)
+	while (j < 3)
 	{
 		li = init_coord(l[j].position.x - p.x, l[j].position.y - p.y, l[j].position.z - p.z);
 		n_dot_l = dot_product(li, n);
 		if (n_dot_l > 0)
 			i += l[j].intensity * n_dot_l / (len_vector(n) * len_vector(li));
-			// if (s != -1)
-			// {
-			// 	r = init_coord(2 * n.x * dot_product(n, li) - li.x, 2 * n.y * dot_product(n, li) - li.y, 2 * n.z * dot_product(n, li) - li.z);
-			// 	r_dot_v = dot_product(r, v);
-			// 	if (r_dot_v > 0)
-			// 		i += l[j].intensity + pow(r_dot_v / (len_vector(r) * len_vector(v)), s);
-			// }
+		if (s != -1)
+		{
+			r = init_coord(2 * n.x * dot_product(n, li) - li.x, 2 * n.y * dot_product(n, li) - li.y, 2 * n.z * dot_product(n, li) - li.z);
+			r_dot_v = dot_product(r, v);
+			if (r_dot_v > 0)
+				i += l[j].intensity * pow(r_dot_v / (len_vector(r) * len_vector(v)), s);
+		}
 
 		j++;
 	}
@@ -109,10 +113,10 @@ double		*intersection_ray_sphere(t_coord a, t_coord b, t_sphere s)
 	return (t);
 }
 
-double		dot_color(t_coord a, t_coord b)
+t_coord		dot_color(t_coord a, t_coord b)
 {
 	double		close_t;
-	double		close_sph;
+	t_coord		close_sph;
 	t_coord p;
 	t_coord n;
 
@@ -121,26 +125,24 @@ double		dot_color(t_coord a, t_coord b)
 	int i = 0;
 	s[0].center = init_coord(0, -1, 3);
 	s[0].radius = 1;
-	s[0].color = 0xffff00;
-	s[0].blesk = 10;
+	s[0].color = init_coord(255, 0, 0);
+	s[0].blesk = 500;
 	s[1].center = init_coord(2, 0, 4);
 	s[1].radius = 1;
-	s[1].color = 0x00ff00;
-	s[1].blesk = 10;
+	s[1].color = init_coord(0, 0, 255);
+	s[1].blesk = 500;
 	s[2].center = init_coord(-2, 0, 4);
 	s[2].radius = 1;
-	s[2].color = 0x0000ff;
-	s[2].blesk = -1;
-	// s[3].center = init_coord(0, -5001, 0);
-	// s[3].radius = 5000;
-	// s[3].color = init_coord(25500, 0, 0);
-	// s[3].blesk = 10;
-
-	close_sph = 0;
+	s[2].color = init_coord(0, 255, 0);
+	s[2].blesk = 10;
+	s[3].center = init_coord(0, -5001, 0);
+	s[3].radius = 5000;
+	s[3].color = init_coord(255, 255, 0);
+	s[3].blesk = 1000;
 	close_t = TMAX;
 	int comp;
 	// init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk
-	while (i < 3)
+	while (i < 4)
 	{
 		t = intersection_ray_sphere(a, b, s[i]);
 		if (t[0] >= TMIN && t[0] <= TMAX && t[0] < close_t)
@@ -149,7 +151,7 @@ double		dot_color(t_coord a, t_coord b)
 			p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y, a.z + close_t * b.z);
 			n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y, p.z - s[i].center.z);
 			n = init_coord(n.x / len_vector(n), n.y / len_vector(n), n.z / len_vector(n));
-			close_sph = (s[i].color) * computer_lighting(p, n); //,init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
+			close_sph = mult(s[i].color, computer_lighting(p, n, mult(b, -1), s[i].blesk));
 		}
 		if (t[1] >= TMIN && t[1] <= TMAX && t[1] < close_t)
 		{
@@ -157,24 +159,23 @@ double		dot_color(t_coord a, t_coord b)
 			p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y, a.z + close_t * b.z);
 			n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y, p.z - s[i].center.z);
 			n = init_coord(n.x / len_vector(n), n.y / len_vector(n), n.z / len_vector(n));
-			close_sph = (s[i].color) * computer_lighting(p, n); //, init_coord(-1 * b.x, -1 * b.y, -1 * b.z), s[i].blesk);
+			close_sph = mult(s[i].color, computer_lighting(p, n, mult(b, -1), s[i].blesk));
 		}
 		i++;
 	}
-	if (close_sph == 0)
-			return (0xFFFFFF);
 	return (close_sph);
 }
 
 int main(void)
 {
-	double		color;
+	t_coord		color;
 	t_coord		a;
 	void		*mlx;
 	void		*win;
 	int			x;
 	int			y;
 	t_coord		camera;
+	int rgb;
 
 	camera = init_coord(0, 0, 0);
 	mlx = mlx_init();
@@ -187,7 +188,8 @@ int main(void)
 		{
 			a = tranform_to_viewport(x, y);
 			color = dot_color(camera, a);
-			mlx_pixel_put(mlx, win, x + WIDTH / 2, y + HEIGHT / 2, color);
+			rgb = (((int)color.x << 16) | ((int)color.y<<8) | ((int)color.z));
+			mlx_pixel_put(mlx, win, x + WIDTH / 2, y + HEIGHT / 2, rgb);
 			y++;
 		}
 		x++;
