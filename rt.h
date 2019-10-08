@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/08 05:44:03 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/08 20:48:34 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,24 @@
 
 typedef struct	s_coord
 {
-	double x;
-	double y;
-	double z;
+	double		x;
+	double		y;
+	double		z;
 }				t_coord;
 
 typedef struct	s_sphere
 {
-	t_coord	center;
+	t_coord		center;
+	t_coord		color;
 	double		radius;
-	t_coord 	color;
-	int		blesk;
+	int			blesk;
 }				t_sphere;
 
 typedef struct	s_light
 {
-	double	intensity;
-	t_coord position;
+	double		inten;
+	t_coord		pos;
 }				t_light;
-
 
 typedef struct	s_rt
 {
@@ -50,12 +49,19 @@ typedef struct	s_rt
 	void		*mlx;
 	void		*win;
 	t_coord		camera;
+	t_coord		light;
 	t_coord		vector;
 	t_sphere	sphere;
 	t_coord		viewport;
 	double		k1;
 	double		k2;
 	double		k3;
+	double		dis;
+	double		n_dot_l;
+	double		r_dot_v;
+	double		intens;
 }				t_rt;
+
+int				key(int keycode, t_rt *rt);
 
 #endif
