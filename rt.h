@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/10 16:27:28 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/10 20:49:58 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,20 @@ typedef struct	s_light
 
 typedef struct	s_cylinder
 {
-	t_coord center;
+	t_coord a;
 	t_coord color;
+	t_coord	b;
 	double	radius;
 	int		blesk;
 }				t_cylinder;
+
+typedef	struct	s_plane
+{
+	t_coord m0;
+	t_coord m1;
+	t_coord m2;
+	t_coord color;
+}				t_plane;
 
 typedef struct	s_rt
 {
@@ -60,6 +69,8 @@ typedef struct	s_rt
 	t_coord		light;
 	t_coord		vector;
 	t_sphere	sphere;
+	t_cylinder	cylinder;
+	t_plane		plane;
 	t_coord		viewport;
 	double		k1;
 	double		k2;
