@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/08 20:48:34 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/10 16:27:28 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,14 @@ typedef struct	s_light
 	double		inten;
 	t_coord		pos;
 }				t_light;
+
+typedef struct	s_cylinder
+{
+	t_coord center;
+	t_coord color;
+	double	radius;
+	int		blesk;
+}				t_cylinder;
 
 typedef struct	s_rt
 {
