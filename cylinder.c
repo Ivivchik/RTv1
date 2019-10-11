@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 17:25:40 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/10 20:50:50 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/12 00:31:07 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,8 @@ t_coord		tranform_to_viewport(double x, double y)
 {
 	t_coord	view_port;
 
-	view_port.x = (x * 2 / WIDTH);
-	view_port.y = (y * -2 / HEIGHT);
+	view_port.x = (x * 5 / WIDTH);
+	view_port.y = (y * -5 / HEIGHT);
 	view_port.z = 1;
 	return (view_port);
 }
@@ -43,9 +43,13 @@ double		len_v(t_coord a)
 	return (sqrt(a.x * a.x + a.y * a.y + a.z * a.z));
 }
 
-double		sum_coord(t_coord a)
+t_coord		sum_vect(t_coord a, t_coord b)
 {
-	return (a.x + a.y + a.z);
+	t_coord c;
+	c.x = a.x + b.x;
+	c.y = a.y + b.y;
+	c.z = a.z + b.z;
+	return (c);
 }
 
 t_coord		mult(t_coord a, double k)
@@ -56,6 +60,15 @@ t_coord		mult(t_coord a, double k)
 	c.y = a.y * k;
 	c.z = a.z * k;
 	return (c);
+}
+
+int			proverka(t_coord a, t_coord b, t_coord c)
+{
+	if ((a.x < b.x && a.x > c.x) &&
+		(a.y < b.y && a.y > c.y) &&
+		(a.z < b.z && a.z > c.z))
+		return (1);
+	return (0);
 }
 
 double		computer_lighting(t_coord p, t_coord n, t_coord v, int s, t_rt *rt)
@@ -102,16 +115,18 @@ double		*intersection_ray_cylinder(t_coord a, t_coord b, t_cylinder s, t_rt *rt)
 	double	*t;
 	t_coord	c;
 	t_coord	v;
-	int		r;
+	t_coord x;
+	double		r;
 
 	if (!(t = (double *)malloc(sizeof(double *) * 3)))
 		return (0);
-	c = s.center;
-	r = s.radius;
-	v = init_coord(a.x - c.x, a.y - c.y, a.z - c.z);
-	rt->k1 = b.x * b.x + b.y * b.y;
-	rt->k2 = 2 * (v.x * b.x + v.y * b.y);
-	rt->k3 = v.x * v.x + v.y * v.y - r * r;
+	c = s.start;
+	v = s.vector;
+	r =	s.radius;
+	x = init_coord(a.x - c.x, a.y - c.y, a.z - c.z);
+	rt->k1 = dot_prod(b, b) - dot_prod(b, v) * dot_prod(b, v);
+	rt->k2 = 2 * (dot_prod(b, x) - dot_prod(b, v) * dot_prod(x, v));
+	rt->k3 = dot_prod(x, x) - dot_prod(x, v) * dot_prod(x, v) - r * r;
 	rt->dis = rt->k2 * rt->k2 - 4 * rt->k1 * rt->k3;
 	if (rt->dis < 0)
 	{
@@ -128,72 +143,68 @@ double		*intersection_ray_cylinder(t_coord a, t_coord b, t_cylinder s, t_rt *rt)
 
 t_coord		dot_color(t_coord a, t_coord b, t_rt *rt)
 {
-	double		close_t;
-	t_coord		close_sph;
-	t_coord		p;
-	t_coord		n;
-	t_cylinder	s[4];
-	double		t;
-	int			i;
-
-	i = 0;
-	close_t = TMAX;
-	s[0].a = init_coord(0, 0, 0);
-	s[0].b = init_coord(0, 3, 0);
-	s[0].radius = 1;
-	s[0].color = init_coord(255, 0, 0);
-	s[0].blesk = 250;
-	// s[1].center = init_coord(2, 0, 4);
-	// s[1].radius = 1;
-	// s[1].color = init_coord(0, 0, 255);
-	// s[1].blesk = 500;
-	// s[2].center = init_coord(-2, 0, 4);
-	// s[2].radius = 1;
-	// s[2].color = init_coord(0, 255, 0);
-	// s[2].blesk = 10;
-	// s[3].center = init_coord(0, -5001, 0);
-	// s[3].radius = 5000;
-	// s[3].color = init_coord(255, 255, 0);
-	// s[3].blesk = 1000;
-	int j;
-	while (i < 1)
-	{	
-		t = intersection_ray_cylinder(a, b, s[i], rt);
-		if (t[0] >= TMIN && t[0] <= TMAX && t[0] < close_t)
+	int i = 0;
+	rt->close_t = TMAX;
+	t_coord color_cylinder;
+	t_cylinder c[2];
+	t_coord z1;
+	t_coord z2;
+	t_coord	p;
+	t_coord n;
+	t_coord x;
+	double m;
+	c[0].start = init_coord(0, 0, 3);
+	c[0].vector = init_coord(5, -4, 3);
+	c[0].vector = init_coord(c[0].vector.x - c[0].start.x, c[0].vector.y - c[0].start.y, c[0].vector.z - c[0].start.z);
+	c[0].vector = init_coord(c[0].vector.x / len_v(c[0].vector), c[0].vector.y / len_v(c[0].vector), c[0].vector.z / len_v(c[0].vector));
+	c[0].color = init_coord(255, 100, 0);
+	c[0].radius = 1;
+	c[0].blesk = 1000;
+	c[1].start = init_coord(0, 0, 4);
+	c[1].vector = init_coord(0, 0, 3);
+	c[1].vector = init_coord(c[0].vector.x - c[0].start.x, c[0].vector.y - c[0].start.y, c[0].vector.z - c[0].start.z);
+	c[1].vector = init_coord(c[0].vector.x / len_v(c[0].vector), c[0].vector.y / len_v(c[0].vector), c[0].vector.z / len_v(c[0].vector));
+	c[1].color = init_coord(0, 100, 0);
+	c[1].radius = 1;
+	c[1].blesk = 100;
+	c[0].max = sum_vect(c[0].start, mult(c[0].vector, 2));
+	color_cylinder = init_coord(0, 0, 0);
+	double *t;
+	while (i < 2)
+	{
+		t = intersection_ray_cylinder(a, b, c[i], rt);
+		z1 = sum_vect(a, mult(b, t[0]));
+		z2 = sum_vect(a, mult(b, t[1]));
+		x = init_coord(a.x - c[i].start.x, a.y - c[i].start.y, a.z - c[i].start.z);
+		if (t[0] >= TMIN && t[0] <= TMAX && t[0] < rt->close_t)// && (z1.y <= c.max.y && z1.y >= c.start.y))
 		{
-			j = 0;
-			while (j < s[i].d)
-			{
-				close_t = t[0];
-				p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y,
-				a.z + close_t * b.z);
-				n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y,
-				p.z - s[i].center.z);
-				n = init_coord(n.x / len_v(n), n.y / len_v(n),
-				n.z / len_v(n));
-				close_sph = s[i].color;//, computer_lighting(p, n, mult(b, -1), s[i].blesk, rt));
-				j++;
-			}
+			m = dot_prod(b, c[i].vector) * t[0] + dot_prod(x, c[i].vector);
+			rt->close_t = t[0];
+			p = init_coord(a.x + rt->close_t * b.x, a.y + rt->close_t * b.y,
+			a.z + rt->close_t * b.z);
+			n = init_coord(p.x - c[i].start.x, p.y - c[i].start.y,
+			p.z - c[i].start.z);
+			n = init_coord(n.x / len_v(n), n.y / len_v(n),
+			n.z / len_v(n));
+			//color_cylinder = c.color;
+			color_cylinder = mult(c[i].color, computer_lighting(p, n, mult(b, -1), c[i].blesk,rt));
 		}
-		if (t[1] >= TMIN && t[1] <= TMAX && t[1] < close_t)
+		if (t[1] > TMIN && t[1] < TMAX && t[1] < rt->close_t) //&& (z2.y <= c.max.y && z2.y >= c.start.y))
 		{
-			j = 0;
-			while (j < s[i].d)
-			{
-				close_t = t[0];
-				p = init_coord(a.x + close_t * b.x, a.y + close_t * b.y,
-				a.z + close_t * b.z);
-				n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y,
-				p.z - j);
-				n = init_coord(n.x / len_v(n), n.y / len_v(n),
-				n.z / len_v(n));
-				close_sph = mult(s[i].color, computer_lighting(p, n, mult(b, -1), s[i].blesk, rt));
-				j++;
-			}
+			m = dot_prod(b, c[i].vector) * t[1] + dot_prod(x, c[i].vector);
+			rt->close_t = t[1];
+			p = init_coord(a.x + rt->close_t * b.x, a.y + rt->close_t * b.y,
+			a.z + rt->close_t * b.z);
+			n = init_coord(p.x - c[i].start.x - c[i].vector.x * m, p.y - c[i].start.y - c[i].vector.y * m,
+			p.z - c[i].start.z - c[i].vector.z * m);
+			n = init_coord(n.x / len_v(n), n.y / len_v(n), n.z / len_v(n));
+			//color_cylinder = c.color;
+			color_cylinder = mult(c[i].color, computer_lighting(p, n, mult(b, -1), c[i].blesk,rt));
+			//computer_lighting(p, n, mult(b, -1), s[i].blesk, rt));
 		}
 		i++;
 	}
-	return (close_sph);
+	return(color_cylinder);
 }
 
 int			main(void)

@@ -6,14 +6,14 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/10 20:49:58 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/12 00:37:35 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef RT_H
 # define RT_H
-# define WIDTH 900
-# define HEIGHT 900
+# define WIDTH 1400
+# define HEIGHT 1400
 # define TMAX 2147483647
 # define TMIN 1
 # include <mlx.h>
@@ -43,12 +43,22 @@ typedef struct	s_light
 
 typedef struct	s_cylinder
 {
-	t_coord a;
+	t_coord start;
+	t_coord vector;
 	t_coord color;
-	t_coord	b;
+	t_coord	max;
 	double	radius;
 	int		blesk;
 }				t_cylinder;
+
+typedef	struct	s_cone
+{
+	t_coord start;
+	t_coord vector;
+	t_coord color;
+	double	k;
+	int blesk;
+}				t_cone;
 
 typedef	struct	s_plane
 {
@@ -65,6 +75,7 @@ typedef struct	s_rt
 	int			vz;
 	void		*mlx;
 	void		*win;
+	double		close_t;
 	t_coord		camera;
 	t_coord		light;
 	t_coord		vector;
