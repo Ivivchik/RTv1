@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/12 00:37:35 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/12 01:46:21 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,10 @@ typedef	struct	s_cone
 
 typedef	struct	s_plane
 {
-	t_coord m0;
-	t_coord m1;
-	t_coord m2;
+	t_coord point;
+	t_coord normal;
 	t_coord color;
+	int		blesk;
 }				t_plane;
 
 typedef struct	s_rt
