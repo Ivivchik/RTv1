@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/10 18:05:17 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/12 01:47:12 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/12 03:51:27 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ int			proverka(t_coord a, t_coord b, t_coord c)
 	return (0);
 }
 
-double		computer_lighting(t_coord p, t_coord n, t_coord v, int s, t_rt *rt)
+double		computer_lighting(t_coord p, t_coord n, t_rt *rt)//, t_coord v, int s, t_rt *rt)
 {
 	t_light l[5];
 	t_coord li;
@@ -83,7 +83,7 @@ double		computer_lighting(t_coord p, t_coord n, t_coord v, int s, t_rt *rt)
 
 	rt->intens = 0;
 	l[0].inten = 0.2;
-	l[0].pos = init_coord(0, 0, 1);
+	l[0].pos = init_coord(-1, -1, 1);
 	l[1].inten = 0.3;
 	l[1].pos = init_coord(2, 1, 0);
 	l[2].inten = 0.3;
@@ -95,16 +95,16 @@ double		computer_lighting(t_coord p, t_coord n, t_coord v, int s, t_rt *rt)
 		rt->n_dot_l = dot_prod(li, n);
 		if (rt->n_dot_l > 0)
 			rt->intens += l[j].inten * rt->n_dot_l / (len_v(n) * len_v(li));
-		if (s != -1)
-		{
-			r = init_coord(2 * n.x * dot_prod(n, li) - li.x,
-			2 * n.y * dot_prod(n, li) - li.y,
-			2 * n.z * dot_prod(n, li) - li.z);
-			rt->r_dot_v = dot_prod(r, v);
-			if (rt->r_dot_v > 0)
-				rt->intens += l[j].inten * pow(rt->r_dot_v /
-				(len_v(r) * len_v(v)), s);
-		}
+		// if (s != -1)
+		// {
+		// 	r = init_coord(2 * n.x * dot_prod(n, li) - li.x,
+		// 	2 * n.y * dot_prod(n, li) - li.y,
+		// 	2 * n.z * dot_prod(n, li) - li.z);
+		// 	rt->r_dot_v = dot_prod(r, v);
+		// 	if (rt->r_dot_v > 0)
+		// 		rt->intens += l[j].inten * pow(rt->r_dot_v /
+		// 		(len_v(r) * len_v(v)), s);
+		// }
 		j++;
 	}
 	return (rt->intens);
@@ -130,43 +130,49 @@ double		intersection_ray_plane(t_coord a, t_coord b, t_plane s)
 t_coord		dot_color(t_coord a, t_coord b, t_rt *rt)
 {
 	rt->close_t = TMAX;
-	t_coord color_plane = init_coord(0, 0, 0);
-	t_plane p;
+	t_coord color_plane = init_coord(255, 255, 255);
+	t_plane p[3];
 	t_coord c;
-	p.point = init_coord(0, 0, 1);
-	p.normal = init_coord(0, 1, 5);
-	p.blesk = 1000;
-	//p.normal = init_coord(p.normal.x - p.point.x, p.normal.y - p.point.y, p.normal.z - p.point.z);
-	p.normal = init_coord(p.normal.x / len_v(p.normal), p.normal.y / len_v(p.normal), p.normal.z / len_v(p.normal));
-	p.color = init_coord(255, 100, 0);
+	p[0].point = init_coord(0, 5, 5);
+	p[0].normal = init_coord(0, 0, -1);
+	p[0].blesk = 1000;
+	p[0].color = init_coord(0, 0, 205);
+	p[1].point = init_coord(0, 0, 1);
+	p[1].normal = init_coord(0, 1, 3);
+	p[1].blesk = 1000;
+	p[1].color = init_coord(169, 169, 169);
+	p[2].point = init_coord(0, 0, 0.7);
+	p[2].normal = init_coord(0, -1, 3);
+	p[2].blesk = 1000;
+	p[2].color = init_coord(47, 79, 79);
 	double t;
-	t = intersection_ray_plane(a, b, p);
-	if (t >= TMIN && t <= TMAX && t < rt->close_t)
+	int i = 0;
+	while (i < 3)
 	{
-		rt->close_t = t;
-		c = init_coord(a.x + rt->close_t * b.x, a.y + rt->close_t * b.y,
-		a.z + rt->close_t * b.z);
-		color_plane = mult(p.color, computer_lighting(c, p.normal, mult(b , -1), p.blesk, rt));
+		t = intersection_ray_plane(a, b, p[i]);
+		if (t >= TMIN && t <= TMAX && t < rt->close_t)
+		{
+			rt->close_t = t;
+			p[i].normal = init_coord(p[i].normal.x / len_v(p[i].normal),
+			p[i].normal.y / len_v(p[i].normal), p[i].normal.z / len_v(p[i].normal));
+			c = init_coord(a.x + rt->close_t * b.x, a.y + rt->close_t * b.y,
+			a.z + rt->close_t * b.z);
+			color_plane = mult(p[i].color, computer_lighting(c, p[i].normal, rt));//, mult(b , -1), p[i].blesk, rt));
+		}
+		i++;
 	}
 	return(color_plane);
 }
 
-int			main(void)
+void	draw(t_rt *rt)
 {
 	t_coord		color;
 	t_coord		a;
-	void		*mlx;
-	void		*win;
-	int			x;
-	int			y;
-	t_coord		camera;
-	int			rgb;
-	t_rt		*rt;
-
-	rt = (t_rt *)malloc(sizeof(t_rt));
+	t_coord camera;
+	int rgb;
+	int x;
+	int y;
 	camera = init_coord(0, 0, 0);
-	mlx = mlx_init();
-	win = mlx_new_window(mlx, WIDTH, HEIGHT, "RTv1");
 	x = -WIDTH / 2 + 1;
 	while (x > -WIDTH / 2 && x < WIDTH / 2)
 	{
@@ -176,12 +182,22 @@ int			main(void)
 			a = tranform_to_viewport(x, y);
 			color = dot_color(camera, a, rt);
 			rgb = (((int)color.x << 16) | ((int)color.y << 8) | ((int)color.z));
-			mlx_pixel_put(mlx, win, x + WIDTH / 2, y + HEIGHT / 2, rgb);
+			mlx_pixel_put(rt->mlx, rt->win, x + WIDTH / 2, y + HEIGHT / 2, rgb);
 			y++;
 		}
 		x++;
 	}
-	mlx_hook(win, 2, 3, key, rt);
-	mlx_loop(mlx);
+}
+
+int			main(void)
+{
+	t_rt		*rt;
+
+	rt = (t_rt *)malloc(sizeof(t_rt));
+	rt->mlx = mlx_init();
+	rt->win = mlx_new_window(rt->mlx, WIDTH, HEIGHT, "RTv1");
+	draw(rt);
+	mlx_hook(rt->win, 2, 3, key, rt);
+	mlx_loop(rt->mlx);
 	return (0);
 }

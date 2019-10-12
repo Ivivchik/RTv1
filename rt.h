@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 20:10:58 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/12 01:46:21 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/12 03:17:31 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct	s_coord
 
 typedef struct	s_sphere
 {
+	char type;
 	t_coord		center;
 	t_coord		color;
 	double		radius;
@@ -43,6 +44,7 @@ typedef struct	s_light
 
 typedef struct	s_cylinder
 {
+	char type;
 	t_coord start;
 	t_coord vector;
 	t_coord color;
@@ -53,6 +55,7 @@ typedef struct	s_cylinder
 
 typedef	struct	s_cone
 {
+	char type;
 	t_coord start;
 	t_coord vector;
 	t_coord color;
@@ -62,6 +65,7 @@ typedef	struct	s_cone
 
 typedef	struct	s_plane
 {
+	char type;
 	t_coord point;
 	t_coord normal;
 	t_coord color;

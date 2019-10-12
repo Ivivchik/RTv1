@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/08 20:42:27 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/12 01:54:01 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/12 02:09:01 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,23 @@ double		computer_lighting(t_coord p, t_coord n, t_coord v, int s, t_rt *rt)
 	return (rt->intens);
 }
 
+double		intersection_ray_plane(t_coord a, t_coord b, t_plane s)
+{
+	double	t;
+	t_coord	c;
+	t_coord	v;
+	t_coord x;
+	double		k;
+
+	c = s.point;
+	v = s.normal;
+	x = init_coord(a.x - c.x, a.y - c.y, a.z - c.z);
+	if (dot_prod(b, v) == 0)
+		return (0);
+	t = - dot_prod(x, v) / dot_prod(b, v);
+	return (t);
+}
+
 double		*intersection_ray_sphere(t_coord a, t_coord b, t_sphere s, t_rt *rt)
 {
 	double	*t;
@@ -126,15 +143,16 @@ double		*intersection_ray_sphere(t_coord a, t_coord b, t_sphere s, t_rt *rt)
 	return (t);
 }
 
-t_coord		dot_color(t_coord a, t_coord b, t_rt *rt)
+int		dot_color(t_coord a, t_coord b, t_rt *rt)
 {
 	double		close_t;
-	t_coord		close_sph;
 	t_coord		p;
 	t_coord		n;
 	t_sphere	s[3];
+	t_plane		pl;
 	double		*t;
 	int			i;
+	int rgb;
 
 	i = 0;
 	close_t = TMAX;
@@ -150,6 +168,16 @@ t_coord		dot_color(t_coord a, t_coord b, t_rt *rt)
 	s[2].radius = 1;
 	s[2].color = init_coord(0, 255, 0);
 	s[2].blesk = 10;
+	t_coord color_plane = init_coord(0, 0, 0);
+	t_coord c;
+	pl.point = init_coord(0, 0, 1);
+	pl.normal = init_coord(0, 1, 5);
+	pl.blesk = 1000;
+	//p.normal = init_coord(p.normal.x - p.point.x, p.normal.y - p.point.y, p.normal.z - p.point.z);
+	pl.normal = init_coord(pl.normal.x / len_v(pl.normal), pl.normal.y / len_v(pl.normal), pl.normal.z / len_v(pl.normal));
+	pl.color = init_coord(255, 100, 0);
+	double ip;
+	ip = intersection_ray_plane(a, b, pl);
 	while (i < 3)
 	{	
 		t = intersection_ray_sphere(a, b, s[i], rt);
@@ -162,7 +190,7 @@ t_coord		dot_color(t_coord a, t_coord b, t_rt *rt)
 			p.z - s[i].center.z);
 			n = init_coord(n.x / len_v(n), n.y / len_v(n),
 			n.z / len_v(n));
-			close_sph = mult(s[i].color,
+			color_plane = mult(s[i].color,
 			computer_lighting(p, n, mult(b, -1), s[i].blesk, rt));
 		}
 		if (t[1] >= TMIN && t[1] <= TMAX && t[1] < close_t)
@@ -173,17 +201,25 @@ t_coord		dot_color(t_coord a, t_coord b, t_rt *rt)
 			n = init_coord(p.x - s[i].center.x, p.y - s[i].center.y,
 			p.z - s[i].center.z);
 			n = init_coord(n.x / len_v(n), n.y / len_v(n), n.z / len_v(n));
-			close_sph = mult(s[i].color,
+			color_plane = mult(s[i].color,
 			computer_lighting(p, n, mult(b, -1), s[i].blesk, rt));
 		}
 		i++;
 	}
-	return (close_sph);
+	if (ip >= TMIN && ip <= TMAX && ip < rt->close_t)
+	{
+		rt->close_t = ip;
+		c = init_coord(a.x + rt->close_t * b.x, a.y + rt->close_t * b.y,
+		a.z + rt->close_t * b.z);
+		color_plane = mult(pl.color, computer_lighting(c, pl.normal, mult(b , -1), pl.blesk, rt));
+	}
+	rgb = (((int)color_plane.x << 16) | ((int)color_plane.y << 8) | ((int)color_plane.z));
+	return (rgb);
 }
 
 int			main(void)
 {
-	t_coord		color;
+	int		color;
 	t_coord		a;
 	void		*mlx;
 	void		*win;
@@ -205,8 +241,7 @@ int			main(void)
 		{
 			a = tranform_to_viewport(x, y);
 			color = dot_color(camera, a, rt);
-			rgb = (((int)color.x << 16) | ((int)color.y << 8) | ((int)color.z));
-			mlx_pixel_put(mlx, win, x + WIDTH / 2, y + HEIGHT / 2, rgb);
+			mlx_pixel_put(mlx, win, x + WIDTH / 2, y + HEIGHT / 2, color);
 			y++;
 		}
 		x++;
