@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 00:06:25 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/15 23:33:38 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/16 13:54:09 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,10 +29,10 @@ t_sphere      *exec_sphere_2(void)
   // spheres[3] = sphere_new(vec_new(255, 255, 0), 5000, ivory);
   free (ivory.type_mat);
 
-  spheres[0] = sphere_new(vec_new(0, -1, 3), 1, 250, vec_new(255,0,0));
+  //spheres[0] = sphere_new(vec_new(0, -1, 3), 1, 250, vec_new(255,0,0));
   // spheres[1] = sphere_new(vec_new(2, 0, 4), 1, 500, vec_new(0,0,255));
   // spheres[2] = sphere_new(vec_new(-3, 0, 4), 1, 10, vec_new(0,255,0));
-  // spheres[3] = sphere_new(vec_new(0, -5001, 0), 5000, 1000, vec_new(255,255,0));
+  spheres[0] = sphere_new(vec_new(0, -5001, 0), 5000, 1000, vec_new(255,255,0));
   return (spheres);
 }
 
@@ -155,7 +155,7 @@ void    init_obj_2(t_obj    ***all_obj, int *num)
       ft_print_error_exit(&ft_putendl, "Error, no_obj_elem");
   }
   i = 0;
-  //fill_objs_sphere(all_obj, objs.new_sphere, &i, NUMB_SPHERE_IN_SCENE2);
+  fill_objs_sphere(all_obj, objs.new_sphere, &i, NUMB_SPHERE_IN_SCENE2);
   fill_objs_cone(all_obj, objs.new_cone, &i, NUMB_CONE_IN_SCENE2);
   fill_objs_plane(all_obj, objs.new_plane, &i, NUMB_PLANE_IN_SCENE2);
   fill_objs_cylin(all_obj, objs.new_cylinder, &i, NUMB_CYLINDR_IN_SCENE2);
