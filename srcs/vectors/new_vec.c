@@ -6,13 +6,13 @@
 /*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 04:55:46 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/09/28 05:25:10 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/19 06:22:33 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-t_vec3    vec_new(double x, double y, double z)
+t_vec3		vec_new(double x, double y, double z)
 {
 	t_vec3 new;
 
@@ -22,7 +22,7 @@ t_vec3    vec_new(double x, double y, double z)
 	return (new);
 }
 
-t_vec3    vec_cpy(t_vec3 v)
+t_vec3		vec_cpy(t_vec3 v)
 {
 	return (vec_new(v.x, v.y, v.z));
 }

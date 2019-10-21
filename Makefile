@@ -6,7 +6,7 @@
 #    By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 17:42:35 by gwaymar-          #+#    #+#              #
-#    Updated: 2019/10/13 21:30:31 by hkuhic           ###   ########.fr        #
+#    Updated: 2019/10/20 12:03:40 by hkuhic           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,26 +14,27 @@ NAME := RTv1
 
 # SRCS files
 SRCS_PATH := ./srcs
-SRCS_FILES := main.c color_pixel.c\
+SRCS_FILES := main.c color_pixel.c mem_buf.c\
 							camera/camera.c\
+							cast_ray/calc_shadow.c\
 							cast_ray/cast_ray.c\
 							cast_ray/intersecray_sphere.c\
 							cast_ray/intersecray_conus.c\
 							cast_ray/intersecray_cylinder.c\
 							cast_ray/intersecray_plane.c\
-							drawer/draw_scene1.c\
-							material/material.c\
-							material/x_ivory.c\
-							material/x_lambert.c\
-							material/x_metal.c\
-							material/x_mirror.c\
-							material/x_red_rubber.c\
+							cast_ray/normal_objs.c\
+							cast_ray/comput_lighting.c\
+							drawer/draw_scene_main.c\
 							objects/fill_all_obj.c\
 							objects/get_objs.c\
 							objects/sphere.c\
 							objects/cone.c\
 							objects/cylinder.c\
 							objects/plane.c\
+							objects/light.c\
+							objects/x_exec_obj.c\
+							objects/x_init_obj.c\
+							objects/x_load_num.c\
 							read_init/sdl_error.c\
 							read_init/read_init.c\
 							sdl_render/sdl_loop.c\
@@ -42,7 +43,11 @@ SRCS_FILES := main.c color_pixel.c\
 							scene/scene2.c\
 							scene/scene3.c\
 							scene/scene4.c\
+							scene/scene4_1.c\
+							scene/scene4_2.c\
 							scene/scene5.c\
+							scene/scene5_1.c\
+							scene/scene5_2.c\
 							surface_sdl/surface.c\
 							vectors/new_vec.c\
 							vectors/normal_vec.c\
@@ -58,8 +63,7 @@ SUB_DIR_OBJ := $(patsubst %, $(OBJECTS_PATH)/%, $(notdir $(shell find $(SRCS_PAT
 
 # cc FLAGS
 CC := gcc
-#CCFLAGS := -Wall -Wextra -Werror
-CCFLAGS := -g
+CCFLAGS := -Wall -Wextra -Werror
 
 # SDL2
 SDL_PATH := ./sdl2/Frameworks
