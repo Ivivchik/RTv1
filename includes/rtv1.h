@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 16:30:29 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 20:13:24 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/21 20:36:27 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@
 # define NUMB_CONE_IN_SCENE5    0
 # define NUMB_CYLINDR_IN_SCENE5 4
 
-# define NUMB_LIGHTS_IN_SCENE5  2
+# define NUMB_LIGHTS_IN_SCENE5  1
 
 /*
 **	Objects

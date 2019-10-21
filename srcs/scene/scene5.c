@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 00:05:03 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 19:29:23 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/21 20:41:14 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,9 +108,9 @@ void		scene5(t_sdl **sdl)
 	if (!(light = create_null_list_lights(nbr_light)) && nbr_light)
 		ft_print_error_exit(&ft_putendl, "Error, no_alloc_for_light");
 	light[0] = light_new(vec_new(-20, 4.99, -10), 0.8);
-	light[1] = light_new(vec_new(25, 4, -10), 0.4);
+	//light[0] = light_new(vec_new(25, 4, -10), 0.4);
 	(*sdl)->light = light;
-	(*sdl)->lookfr = vec_new(0, 0, 0);
+	(*sdl)->lookfr = vec_new(0, 0, 30);
 	(*sdl)->lookat = vec_op_sub(vec_new(0, 0, 1), (*sdl)->rot_ang);
 	draw_scene_main(frame, sdl);
 	(*sdl)->image = frame;

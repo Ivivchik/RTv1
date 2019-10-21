@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 06:29:53 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 19:45:07 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/21 20:42:12 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ t_cylin		*exec_cylinder_4(void)
 		ft_print_error_exit(&ft_putendl, "Error, no_cylinder");
 	v = vec_new(-2, -2, 0);
 	v = vec_new(v.x / vec_length(v), v.y / vec_length(v), v.z / vec_length(v));
-	cylin[0] = cylin_new(vec_new(0, 0, 0), v, 0.5, vec_new(255, 100, 0));
+	cylin[0] = cylin_new(vec_new(0, 0, 0), v, 0.5, vec_new(255, 100, 52));
 	return (cylin);
 }
 
@@ -94,7 +94,7 @@ void		scene4(t_sdl **sdl)
 	light[0] = light_new(vec_new(-20, 0, -8), 1);
 	light[1] = light_new(vec_new(20, 0, -8), 1);
 	(*sdl)->light = light;
-	(*sdl)->lookfr = vec_new(0, 0, -5);
+	(*sdl)->lookfr = vec_new(0, 0, 20);
 	(*sdl)->lookat = vec_op_sub(vec_new(0, 0, 1), (*sdl)->rot_ang);
 	draw_scene_main(frame, sdl);
 	(*sdl)->image = frame;

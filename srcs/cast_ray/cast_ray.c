@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 02:20:44 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 20:05:38 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/21 20:32:10 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,8 @@ double		*cast_ray_for_obj(t_sdl *sdl, t_ray ray, int i)
 		intersec_plane(ray, get_pla(sdl->obj[i]->type), sdl, &t);
 	else if (ft_strcmp(sdl->obj[i]->c_type, STR_CYLINDR) == 0)
 		intersec_cylinder(ray, get_cyl(sdl->obj[i]->type), sdl, &t);
+	if (check_color(sdl->f_color))
+		ft_print_error_exit(&ft_putendl, "Error, incorrect color");
 	return (t);
 }
 
@@ -58,8 +60,6 @@ t_vec3		calc_color(double close_t, t_ray ray, t_sdl *sdl, int i)
 		sdl->norm_cylin = ray;
 		n = normal_cylinder(p, i, sdl, close_t);
 	}
-	if (check_color(sdl->f_color))
-		ft_print_error_exit(&ft_putendl, "Error, incorrect color");
 	col_out = vec_scale(sdl->f_color, computer_lighting(p, n, sdl,
 				vec_scale(ray.direct, -1)));
 	max_f = fmax(col_out.x, (fmax(col_out.y, col_out.z)));
