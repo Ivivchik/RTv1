@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 00:45:29 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 18:11:31 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/22 19:27:11 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,13 +60,13 @@ void			read_init(t_sdl **sdl, char *av)
 	ft_init(sdl);
 	if (!(parse_check(*sdl, av)))
 	{
-		printf("BAD!\n"); /////////
+		printf("BAD!\n");
 		how_to_use();
 	}
 	get_list_objs(*sdl, av);
 
 	//////////  OUT  after  parsing
 
-	printf("GOOOD!\n"); ///////////
+	printf("GOOOD!\n");
 	return ;
 }

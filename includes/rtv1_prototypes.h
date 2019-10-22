@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:20:57 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 17:26:25 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/22 18:52:21 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,16 +88,9 @@ void		put_pixel(SDL_Surface *surf,
 ** Some scene function
 */
 void		scene1(t_sdl **sdl);
-void		scene2(t_sdl **sdl);
-void		scene3(t_sdl **sdl);
-void		scene4(t_sdl **sdl);
-void		scene4_1(t_sdl **sdl);
-void		scene4_2(t_sdl **sdl);
-void		scene5(t_sdl **sdl);
-void		scene5_1(t_sdl **sdl);
-void		scene5_2(t_sdl **sdl);
-int			exec_1(t_all_obj *objs, t_sdl *sdl);
-void		load_1(int *i, int **nbr, t_sdl	*sdl);
+
+// int			exec_1(t_all_obj *objs, t_sdl *sdl);
+// void		load_1(int *i, int **nbr, t_sdl	*sdl);
 
 /*
 ** scene1

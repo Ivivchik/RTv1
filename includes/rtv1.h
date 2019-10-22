@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 16:30:29 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 22:25:26 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/22 18:51:40 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,16 +28,6 @@
 # define WIN_HEIGHT 1200
 
 # define SCENE1 "scene1"
-# define SCENE2 "scene2"
-# define SCENE3 "scene3"
-# define SCENE4 "scene4"
-# define SCENE5 "scene5"
-
-# define SCENE1_IMG 1
-# define SCENE2_IMG 2
-# define SCENE3_IMG 3
-# define SCENE4_IMG 4
-# define SCENE5_IMG 5
 
 # define MAX_DIST 1.7976931348623158e+308
 # define MIN_DIST 0.00000001
