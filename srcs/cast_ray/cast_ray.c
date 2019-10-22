@@ -3,23 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 02:20:44 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 20:32:10 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/22 08:39:47 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-int			check_color(t_vec3 color)
-{
-	if (color.x < 0 || color.x > 255 || color.y < 0
-		|| color.y > 255 || color.z < 0 || color.z > 255)
-		return (1);
-	else
-		return (0);
-}
 
 double		*cast_ray_for_obj(t_sdl *sdl, t_ray ray, int i)
 {
@@ -35,8 +26,6 @@ double		*cast_ray_for_obj(t_sdl *sdl, t_ray ray, int i)
 		intersec_plane(ray, get_pla(sdl->obj[i]->type), sdl, &t);
 	else if (ft_strcmp(sdl->obj[i]->c_type, STR_CYLINDR) == 0)
 		intersec_cylinder(ray, get_cyl(sdl->obj[i]->type), sdl, &t);
-	if (check_color(sdl->f_color))
-		ft_print_error_exit(&ft_putendl, "Error, incorrect color");
 	return (t);
 }
 
@@ -77,7 +66,7 @@ t_vec3		cast_ray(t_ray ray, t_sdl *sdl)
 	i = -1;
 	close_t = MAX_DIST;
 	color = vec_new(0, 0, 0);
-	while (++i < sdl->num_obj)
+	while (++i < sdl->nbrs.num_obj)
 	{
 		if (!(t = cast_ray_for_obj(sdl, ray, i)))
 			ft_print_error_exit(&ft_putendl, "Error, no_memalloc_for_t");

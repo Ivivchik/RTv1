@@ -3,19 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   sdl_loop.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/28 00:30:14 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 22:45:11 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/19 07:54:36 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
-
-void foo()
-{
-	printf("REsized!!\n");
-}
 
 void		sdl_loop(t_sdl *sdl)
 {
@@ -27,10 +22,6 @@ void		sdl_loop(t_sdl *sdl)
 					(SDL_KEYDOWN == sdl->event.type &&
 						SDL_SCANCODE_ESCAPE == sdl->event.key.keysym.scancode))
 				sdl->run_main = 0;
-			else if (sdl->event.type == SDL_WINDOWEVENT_RESIZED)
-			{
-				foo();				
-			}
 		}
 	}
 	return ;

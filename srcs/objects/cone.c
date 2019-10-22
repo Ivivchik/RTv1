@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 17:28:42 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/19 07:17:33 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/22 17:34:53 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,16 +33,16 @@ t_cone		*create_null_list_cone(int nbr)
 	return (n);
 }
 
-t_cone		cone_new(t_vec3 center, t_vec3 vector, t_vec3 color, double ang)
+t_cone		cone_new(t_cone pars_cone)
 {
 	t_cone		new_cone;
 	double		blesk;
 
 	blesk = 250;
-	new_cone.center = center;
-	new_cone.blesk = blesk;
-	new_cone.color = color;
-	new_cone.ang = ang;
-	new_cone.vector = vector;
+	new_cone.center = pars_cone.center;
+	new_cone.blesk = pars_cone.blesk;
+	new_cone.color = pars_cone.color;
+	new_cone.ang = pars_cone.ang;
+	new_cone.vector = pars_cone.vector;
 	return (new_cone);
 }

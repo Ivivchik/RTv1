@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:20:57 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 18:28:24 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/22 17:26:25 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 ** Main functions
 */
 void		ft_close(t_sdl **sdl);
-void		ft_init(t_sdl **sdl, uint8_t sc);
+void		ft_init(t_sdl **sdl);
 void		sdl_loop(t_sdl *sdl);
 void		how_to_use(void);
 
@@ -26,6 +26,11 @@ void		how_to_use(void);
 */
 void		read_init(t_sdl **sdl, char *argv);
 int			put_error_sdl(char *str, const char *err);
+
+/*
+** Parse functions
+*/
+int			parse_check(t_sdl *sdl, char *av);
 
 /*
 ** Render functions
@@ -50,18 +55,17 @@ t_light		*create_null_list_lights(int nbr);
 t_light		light_new(t_vec3 pos, double intens);
 t_sphere	sphere_new(t_vec3 center, double radius,
 		double blesk, t_vec3 color);
-t_cone		cone_new(t_vec3 center, t_vec3 vector, t_vec3 color, double ang);
+t_cone		cone_new(t_cone		pars_cone);
 t_plane		plane_new(t_vec3 norm, t_vec3 line,
 		double blesk, t_vec3 color);
-t_cylin		cylin_new(t_vec3 center, t_vec3 vector,
-		double radius, t_vec3 color);
+t_cylin		cylin_new(t_cylin		pars_cylin);
 void		fill_objs_sphere(t_obj ***all_obj,
 		t_sphere *sphere, int *i, int max);
 void		fill_objs_cone(t_obj ***all_obj, t_cone *cone, int *i, int max);
 void		fill_objs_plane(t_obj ***all_obj, t_plane *plane, int *i, int max);
 void		fill_objs_cylin(t_obj ***all_obj,
 		t_cylin *cylindr, int *i, int max);
-void		init_obj(t_obj ***all_obj, int *num, int scene_num);
+void		init_obj(t_obj ***all_obj, int *num, t_sdl *sdl);
 
 /*
 ** Camera functions
@@ -92,56 +96,16 @@ void		scene4_2(t_sdl **sdl);
 void		scene5(t_sdl **sdl);
 void		scene5_1(t_sdl **sdl);
 void		scene5_2(t_sdl **sdl);
-void		exec_1(t_all_obj *objs);
-void		exec_2(t_all_obj *objs);
-void		exec_3(t_all_obj *objs);
-void		exec_4(t_all_obj *objs);
-void		exec_5(t_all_obj *objs);
-void		load_1(int *i, int **nbr);
-void		load_2(int *i, int **nbr);
-void		load_3(int *i, int **nbr);
-void		load_4(int *i, int **nbr);
-void		load_5(int *i, int **nbr);
+int			exec_1(t_all_obj *objs, t_sdl *sdl);
+void		load_1(int *i, int **nbr, t_sdl	*sdl);
 
 /*
 ** scene1
 */
-t_sphere	*exec_sphere_1(void);
-t_cone		*exec_cone_1(void);
-t_cylin		*exec_cylinder_1(void);
-t_plane		*exec_plane_1(void);
-
-/*
-** scene2
-*/
-t_sphere	*exec_sphere_2(void);
-t_cone		*exec_cone_2(void);
-t_cylin		*exec_cylinder_2(void);
-t_plane		*exec_plane_2(void);
-
-/*
-** scene3
-*/
-t_sphere	*exec_sphere_3(void);
-t_cone		*exec_cone_3(void);
-t_cylin		*exec_cylinder_3(void);
-t_plane		*exec_plane_3(void);
-
-/*
-** scene4
-*/
-t_sphere	*exec_sphere_4(void);
-t_cone		*exec_cone_4(void);
-t_cylin		*exec_cylinder_4(void);
-t_plane		*exec_plane_4(void);
-
-/*
-** scene5
-*/
-t_sphere	*exec_sphere_5(void);
-t_cone		*exec_cone_5(void);
-t_cylin		*exec_cylinder_5(void);
-t_plane		*exec_plane_5(void);
+t_sphere	*exec_sphere_1(t_sdl *sdl);
+t_cone		*exec_cone_1(t_sdl *sdl);
+t_cylin		*exec_cylinder_1(t_sdl *sdl);
+t_plane		*exec_plane_1(t_sdl *sdl);
 
 /*
 ** Drawer functions for scene
@@ -186,5 +150,17 @@ t_sphere	get_sph(void *sdl_sph);
 t_cone		get_con(void *sdl_o);
 t_plane		get_pla(void *sdl_p);
 t_cylin		get_cyl(void *sdl_c);
+
+/*
+** Fill obj
+*/
+void		fill_camera(char **split, t_vec3 *from, t_vec3 *lookat);
+void		fill_light(char **split, t_light *new_light, int *i);
+void		fill_sphere(char **split, t_sphere *new_sphere, int *i);
+void		fill_plane(char **split, t_plane *new_plane, int *i);
+void		fill_cone(char **split, t_cone *new_cone, int *i);
+void		fill_cylin(char **split, t_cylin *new_cylinder, int *i);
+
+void		get_list_objs(t_sdl *sdl2, char *path);
 
 #endif

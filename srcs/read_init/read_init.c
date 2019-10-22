@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 00:45:29 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/20 12:16:51 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/22 18:11:31 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static uint8_t	init_sdl(t_sdl **sdl)
 	return (1);
 }
 
-void			ft_init(t_sdl **sdl, uint8_t sc)
+void			ft_init(t_sdl **sdl)
 {
 	if (!((*sdl) = ft_memalloc(sizeof(t_sdl))))
 		ft_print_error_exit(&ft_putendl, "Error");
@@ -39,8 +39,6 @@ void			ft_init(t_sdl **sdl, uint8_t sc)
 	(*sdl)->screen = NULL;
 	(*sdl)->image = NULL;
 	(*sdl)->run_main = 1;
-	(*sdl)->scene_num = sc;
-	(*sdl)->num_obj = 0;
 	(*sdl)->obj = NULL;
 	(*sdl)->rot_ang = vec_new(0, 0, 0);
 	if (!(init_sdl(sdl)))
@@ -59,29 +57,16 @@ void			ft_close(t_sdl **sdl)
 
 void			read_init(t_sdl **sdl, char *av)
 {
-	uint8_t		scene;
-
-	scene = 0;
-	if (ft_strcmp(SCENE1, av) == 0)
-		scene = 1;
-	else if (ft_strcmp(SCENE2, av) == 0)
-		scene = 2;
-	else if (ft_strcmp(SCENE3, av) == 0)
-		scene = 3;
-	else if (ft_strcmp(SCENE4, av) == 0)
-		scene = 4;
-	else if (ft_strcmp(SCENE4_1, av) == 0)
-		scene = 6;
-	else if (ft_strcmp(SCENE4_2, av) == 0)
-		scene = 7;
-	else if (ft_strcmp(SCENE5, av) == 0)
-		scene = 5;
-	else if (ft_strcmp(SCENE5_1, av) == 0)
-		scene = 8;
-	else if (ft_strcmp(SCENE5_2, av) == 0)
-		scene = 9;
-	else
+	ft_init(sdl);
+	if (!(parse_check(*sdl, av)))
+	{
+		printf("BAD!\n"); /////////
 		how_to_use();
-	ft_init(sdl, scene);
+	}
+	get_list_objs(*sdl, av);
+
+	//////////  OUT  after  parsing
+
+	printf("GOOOD!\n"); ///////////
 	return ;
 }

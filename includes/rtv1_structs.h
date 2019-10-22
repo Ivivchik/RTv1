@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:20:54 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/21 18:29:05 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/22 17:25:06 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,20 @@ typedef struct		s_buf_color
 }					t_buf_color;
 
 /*
+**	After parse nbrs
+*/
+typedef struct		s_nbr_all
+{
+	int				num_obj;
+	int				num_sph;
+	int				num_pla;
+	int				num_con;
+	int				num_cyl;
+	int				num_lig;
+	int				num_cam;
+}					t_nbr_all;
+
+/*
 **	Main struct
 */
 typedef struct		s_sdl
@@ -125,7 +139,6 @@ typedef struct		s_sdl
 	SDL_Event		event;
 	uint8_t			run_main;
 	uint8_t			scene_num;
-	int				num_obj;
 	t_obj			**obj;
 	t_light			*light;
 	double			k1;
@@ -138,12 +151,19 @@ typedef struct		s_sdl
 	t_vec3			f_center;
 	double			f_blesk;
 	t_vec3			f_color;
-	t_ray			norm_cylin;
 	t_vec3			norm_cone;
+	t_ray			norm_cylin;
 	double			k;
 	t_vec3			lookat;
 	t_vec3			lookfr;
 	t_vec3			rot_ang;
+	t_nbr_all		nbrs;
+	char			*block_1;
+	char			*block_2;
+	char			*block_3;
+	char			*block_4;
+	char			*block_5;
+	char			*block_6;
 }					t_sdl;
 
 #endif

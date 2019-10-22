@@ -6,7 +6,7 @@
 /*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 04:30:13 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/19 07:46:34 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/22 07:37:33 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ uint8_t			calc_shadow(t_calc_light me, t_sdl *sdl)
 	sdl_to_buf(sdl, &buf_col);
 	i = -1;
 	close_t = MAX_DIST;
-	while (++i < sdl->num_obj)
+	while (++i < sdl->nbrs.num_obj)
 	{
 		if (!(t_sh = cast_ray_for_obj(sdl, init_shadow_ray(me, &check), i)))
 			ft_print_error_exit(&ft_putendl, "Error, no_memalloc_for_t");

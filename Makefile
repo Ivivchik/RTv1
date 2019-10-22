@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+         #
+#    By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 17:42:35 by gwaymar-          #+#    #+#              #
-#    Updated: 2019/10/20 12:03:40 by hkuhic           ###   ########.fr        #
+#    Updated: 2019/10/22 06:50:53 by gwaymar-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,22 +32,14 @@ SRCS_FILES := main.c color_pixel.c mem_buf.c\
 							objects/cylinder.c\
 							objects/plane.c\
 							objects/light.c\
-							objects/x_exec_obj.c\
-							objects/x_init_obj.c\
-							objects/x_load_num.c\
+							parse_check/parse_check.c\
+							read_init/fill_objects.c\
 							read_init/sdl_error.c\
 							read_init/read_init.c\
+							read_init/get_list_objs.c\
 							sdl_render/sdl_loop.c\
 							sdl_render/sdl_render.c\
 							scene/scene1.c\
-							scene/scene2.c\
-							scene/scene3.c\
-							scene/scene4.c\
-							scene/scene4_1.c\
-							scene/scene4_2.c\
-							scene/scene5.c\
-							scene/scene5_1.c\
-							scene/scene5_2.c\
 							surface_sdl/surface.c\
 							vectors/new_vec.c\
 							vectors/normal_vec.c\
@@ -63,7 +55,8 @@ SUB_DIR_OBJ := $(patsubst %, $(OBJECTS_PATH)/%, $(notdir $(shell find $(SRCS_PAT
 
 # cc FLAGS
 CC := gcc
-CCFLAGS := -Wall -Wextra -Werror
+# CCFLAGS := -Wall -Wextra -Werror
+CCFLAGS := -g
 
 # SDL2
 SDL_PATH := ./sdl2/Frameworks
