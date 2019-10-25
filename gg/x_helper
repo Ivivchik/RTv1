@@ -1,0 +1,20 @@
+camera From_Vec LookAt_Vec
+camera 0,0,10 0,0,1
+
+light Position_Vec Intensive_Double
+light 10,2,8 0.4
+
+sphere Center_Vec Radius_Double Blesk_Double Color_Vec
+sphere 0,0,0 2 250 255,0,0
+
+cone Center_Vec Normal_Vec Angle_Double Blesk_Double Color_Vec
+cone 0,0,2 0,2,0 0.6 10 255,0,255
+
+plane Center_Vec Normal_Vec Blesk_Double Color_Vec
+plane 0,-1,0 0,1,0 250 0,150,250
+
+cylindre Center_Vec Normal_vec Radius_Double Color_Vec
+cylindre 6,1,0 0,1,0 0.6 10 250,250,250
+
+ambient Intensive_Double
+ambient 0.2

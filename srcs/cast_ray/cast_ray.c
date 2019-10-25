@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   cast_ray.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 02:20:44 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 08:39:47 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/25 15:50:57 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
+
+void		check_color(t_sdl *sdl)
+{
+	if (sdl->f_color.x < 0 || sdl->f_color.x > 255 ||
+		sdl->f_color.y < 0 || sdl->f_color.y > 255 ||
+		sdl->f_color.z < 0 || sdl->f_color.z > 255)
+		ft_print_error_exit(&ft_putendl, "Error, incorrect color");
+}
 
 double		*cast_ray_for_obj(t_sdl *sdl, t_ray ray, int i)
 {
@@ -49,6 +57,7 @@ t_vec3		calc_color(double close_t, t_ray ray, t_sdl *sdl, int i)
 		sdl->norm_cylin = ray;
 		n = normal_cylinder(p, i, sdl, close_t);
 	}
+	check_color(sdl);
 	col_out = vec_scale(sdl->f_color, computer_lighting(p, n, sdl,
 				vec_scale(ray.direct, -1)));
 	max_f = fmax(col_out.x, (fmax(col_out.y, col_out.z)));

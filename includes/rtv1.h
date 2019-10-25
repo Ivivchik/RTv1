@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/31 16:30:29 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 18:51:40 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/25 07:06:44 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@
 # define STR_PLANE    "plane"
 # define STR_CONE     "cone"
 # define STR_CYLINDR  "cylindre"
+# define STR_AMBIENT  "ambient"
 
 /*
 **	Some errors

@@ -6,7 +6,7 @@
 #    By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/04/01 17:42:35 by gwaymar-          #+#    #+#              #
-#    Updated: 2019/10/22 06:50:53 by gwaymar-         ###   ########.fr        #
+#    Updated: 2019/10/25 05:41:18 by gwaymar-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,10 +33,26 @@ SRCS_FILES := main.c color_pixel.c mem_buf.c\
 							objects/plane.c\
 							objects/light.c\
 							parse_check/parse_check.c\
-							read_init/fill_objects.c\
+							parse_check/valid_param.c\
+							parse_check/valid_block1.c\
+							parse_check/check_all_block.c\
+							parse_check/check_block.c\
+							parse_check/try_find_params_2.c\
+							parse_check/try_find_params_3.c\
+							parse_check/try_find_params_4.c\
+							parse_check/try_find_params_5.c\
+							parse_check/check_helper_part1.c\
+							parse_check/check_helper_part2.c\
+							parse_check/free_part1.c\
+							parse_check/free_part2.c\
+							read_init/fill_objects_part1.c\
+							read_init/fill_objects_part2.c\
 							read_init/sdl_error.c\
 							read_init/read_init.c\
 							read_init/get_list_objs.c\
+							read_init/exec_objects.c\
+							read_init/fill_all_parse.c\
+							read_init/valid_help.c\
 							sdl_render/sdl_loop.c\
 							sdl_render/sdl_render.c\
 							scene/scene1.c\
@@ -55,8 +71,7 @@ SUB_DIR_OBJ := $(patsubst %, $(OBJECTS_PATH)/%, $(notdir $(shell find $(SRCS_PAT
 
 # cc FLAGS
 CC := gcc
-# CCFLAGS := -Wall -Wextra -Werror
-CCFLAGS := -g
+CCFLAGS := -Wall -Wextra -Werror
 
 # SDL2
 SDL_PATH := ./sdl2/Frameworks

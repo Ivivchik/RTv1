@@ -1,28 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdl_loop.c                                         :+:      :+:    :+:   */
+/*   valid_help.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/28 00:30:14 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/25 04:12:21 by gwaymar-         ###   ########.fr       */
+/*   Created: 2019/10/25 03:39:41 by gwaymar-          #+#    #+#             */
+/*   Updated: 2019/10/25 05:44:59 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		sdl_loop(t_sdl *sdl)
+double		valid_intens(double n)
 {
-	while (sdl->run_main)
-	{
-		while (SDL_PollEvent(&(sdl->event)) != 0)
-		{
-			if ((SDL_QUIT == sdl->event.type) ||
-					(SDL_KEYDOWN == sdl->event.type &&
-						SDL_SCANCODE_ESCAPE == sdl->event.key.keysym.scancode))
-				sdl->run_main = 0;
-		}
-	}
-	return ;
+	if (n > 1)
+		n = 1;
+	else if (n < 0)
+		n = 0;
+	else
+		n = (double)n;
+	return (n);
+}
+
+double		valid_radius(double n)
+{
+	if (n < 0)
+		n = 0;
+	else
+		n = (double)n;
+	return (n);
+}
+
+double		valid_blesk(double n)
+{
+	if (n < 0)
+		n = 0;
+	else
+		n = (double)n;
+	return (n);
 }

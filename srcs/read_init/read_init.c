@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   read_init.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 00:45:29 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 19:27:11 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/25 04:12:54 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ static uint8_t	init_sdl(t_sdl **sdl)
 	{
 		if (!((*sdl)->win = SDL_CreateWindow(WIN_TITLE,
 						SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
-						WIN_WIDTH, WIN_HEIGHT, SDL_WINDOW_SHOWN)))
+						WIN_WIDTH, WIN_HEIGHT,
+						SDL_WINDOW_SHOWN | SDL_WINDOW_RESIZABLE)))
 			return (put_error_sdl(WIN_ERROR, SDL_GetError()));
 		else
 		{
@@ -28,7 +29,7 @@ static uint8_t	init_sdl(t_sdl **sdl)
 				return (put_error_sdl(SUR_ERROR, SDL_GetError()));
 		}
 	}
-	return (1);
+	return (TRUE);
 }
 
 void			ft_init(t_sdl **sdl)
@@ -59,14 +60,7 @@ void			read_init(t_sdl **sdl, char *av)
 {
 	ft_init(sdl);
 	if (!(parse_check(*sdl, av)))
-	{
-		printf("BAD!\n");
-		how_to_use();
-	}
+		exit(1);
 	get_list_objs(*sdl, av);
-
-	//////////  OUT  after  parsing
-
-	printf("GOOOD!\n");
 	return ;
 }

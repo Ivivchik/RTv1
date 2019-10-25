@@ -6,7 +6,7 @@
 #    By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2018/11/26 15:29:37 by gwaymar-          #+#    #+#              #
-#    Updated: 2019/07/14 18:15:13 by gwaymar-         ###   ########.fr        #
+#    Updated: 2019/10/24 23:59:26 by gwaymar-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ SRCS = ft_atoi.c ft_bzero.c ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c 
 	   ft_strnstr.c ft_strrchr.c ft_strsplit.c ft_strstr.c ft_strsub.c ft_strtrim.c \
 	   ft_tolower.c ft_toupper.c ft_memcpy.c ft_isupper.c ft_islower.c ft_strrev.c \
 	   ft_lst_last.c ft_lstsize.c get_next_line.c ft_list_reverse.c ft_print_error_exit.c \
-		 ft_abs_double.c
+		 ft_abs_double.c ft_atof.c
 INCLUDES = -I libft.h
 OBJECTS = $(SRCS:.c=.o)
 FLAG = -Wall -Werror -Wextra -O3

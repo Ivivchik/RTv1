@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_prototypes.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:20:57 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 18:52:21 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/25 04:14:52 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,55 @@ int			put_error_sdl(char *str, const char *err);
 ** Parse functions
 */
 int			parse_check(t_sdl *sdl, char *av);
+void		fill_all_parse(t_light **new_light,
+			t_all_obj *objs, t_sdl *sdl, char *path);
+
+/*
+** Valid_parse
+*/
+int			check_all_block(t_sdl *sdl);
+int			valid_param(t_sdl *sdl, char *path);
+int			check_blok_1(t_sdl *sdl);
+int			try_find_objs(char *obj_block);
+void		init_bloks(t_sdl *sdl, char **split);
+int			check_blok_2(t_sdl *sdl);
+int			check_blok_3(t_sdl *sdl);
+int			check_blok_4(t_sdl *sdl);
+int			check_blok_5(t_sdl *sdl);
+int			check_blok_6(t_sdl *sdl);
+int			try_find_params_2(char *block1, char *block2);
+int			try_find_params_3(char *block1, char *block3);
+int			try_find_params_4(char *block1, char *block4);
+int			try_find_params_5(char *block1, char *block5);
+int			try_find_params_6(char *block1, char *block6);
+double		valid_intens(double n);
+double		valid_radius(double n);
+double		valid_blesk(double n);
+
+/*
+** Valid_parse_helper
+*/
+int			str_count_c(char *str, char c);
+int			check_letter_alnum(char *str);
+int			check_letter_num(char *str);
+int			check_letter_hex(char *str);
+int			is_hex(int c);
+int			str_count_c(char *str, char c);
+int			check_str_to_hex(char *block);
+int			check_str_to_double(char *block);
+int			check_str_to_vec3(char *block);
+t_nbr_all	nbr(void);
+int			wrong_param_false(void);
+
+/*
+** Free_parse_helper
+*/
+void		free_tmp_free_split(char **tmp, char ***str);
+int			free_split_vec3_true(char ***str);
+int			free_split_double_true(char ***str, char **bzero);
+int			free_split_double_false(char ***str, char **bzero);
+int			false_free_close_split(char **tmp, int *fd, char ***str);
+int			false_free_close(char **tmp, int *fd);
 
 /*
 ** Render functions
@@ -89,16 +138,14 @@ void		put_pixel(SDL_Surface *surf,
 */
 void		scene1(t_sdl **sdl);
 
-// int			exec_1(t_all_obj *objs, t_sdl *sdl);
-// void		load_1(int *i, int **nbr, t_sdl	*sdl);
-
 /*
-** scene1
+** Malloc_types_for_objects
 */
 t_sphere	*exec_sphere_1(t_sdl *sdl);
 t_cone		*exec_cone_1(t_sdl *sdl);
 t_cylin		*exec_cylinder_1(t_sdl *sdl);
 t_plane		*exec_plane_1(t_sdl *sdl);
+t_light		*exec_light_1(t_sdl *sdl);
 
 /*
 ** Drawer functions for scene
@@ -153,6 +200,7 @@ void		fill_sphere(char **split, t_sphere *new_sphere, int *i);
 void		fill_plane(char **split, t_plane *new_plane, int *i);
 void		fill_cone(char **split, t_cone *new_cone, int *i);
 void		fill_cylin(char **split, t_cylin *new_cylinder, int *i);
+void		fill_ambient(char **split, double *amb);
 
 void		get_list_objs(t_sdl *sdl2, char *path);
 

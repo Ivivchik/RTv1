@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 16:58:31 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/19 08:17:02 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/25 05:52:18 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,15 +14,15 @@
 
 static double	*con_t(double *t, double k2, double dis, double k1)
 {
-	t[0] = (-k2 + sqrt(dis)) / (2 * k1);
-	t[1] = (-k2 - sqrt(dis)) / (2 * k1);
+	t[0] = (double)(-k2 + sqrt(dis)) / (2 * k1);
+	t[1] = (double)(-k2 - sqrt(dis)) / (2 * k1);
 	return (t);
 }
 
 static double	*con_t_max(double *t)
 {
-	t[0] = MAX_DIST;
-	t[1] = MAX_DIST;
+	t[0] = 0;
+	t[1] = 0;
 	return (t);
 }
 

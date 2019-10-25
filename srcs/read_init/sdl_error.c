@@ -6,7 +6,7 @@
 /*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/12 00:53:20 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/19 06:59:28 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/25 04:10:52 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,5 +25,5 @@ int		put_error_sdl(char *str, const char *err)
 		ft_putstr(err);
 		ft_putstr("\n");
 	}
-	return (0);
+	return (FALSE);
 }

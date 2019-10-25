@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rtv1_structs.h                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
+/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/08/10 16:20:54 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 17:25:06 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/25 04:15:22 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,6 +126,7 @@ typedef struct		s_nbr_all
 	int				num_cyl;
 	int				num_lig;
 	int				num_cam;
+	int				num_amb;
 }					t_nbr_all;
 
 /*
@@ -164,6 +165,7 @@ typedef struct		s_sdl
 	char			*block_4;
 	char			*block_5;
 	char			*block_6;
+	double			ambient;
 }					t_sdl;
 
 #endif

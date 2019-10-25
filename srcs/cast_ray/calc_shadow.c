@@ -6,7 +6,7 @@
 /*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 04:30:13 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 07:37:33 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/25 03:32:13 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static t_ray	init_shadow_ray(t_calc_light me, double *check)
 
 static uint8_t	add_shadow(t_sdl *sdl)
 {
-	sdl->intens *= 0.7f;
+	sdl->intens -= 0.01f;
 	return (TRUE);
 }
 

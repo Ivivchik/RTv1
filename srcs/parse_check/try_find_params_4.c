@@ -1,28 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sdl_loop.c                                         :+:      :+:    :+:   */
+/*   try_find_params_4.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/09/28 00:30:14 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/25 04:12:21 by gwaymar-         ###   ########.fr       */
+/*   Created: 2019/10/24 21:07:35 by gwaymar-          #+#    #+#             */
+/*   Updated: 2019/10/25 05:42:47 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "rtv1.h"
 
-void		sdl_loop(t_sdl *sdl)
+int			try_find_params_4(char *block1, char *block4)
 {
-	while (sdl->run_main)
-	{
-		while (SDL_PollEvent(&(sdl->event)) != 0)
-		{
-			if ((SDL_QUIT == sdl->event.type) ||
-					(SDL_KEYDOWN == sdl->event.type &&
-						SDL_SCANCODE_ESCAPE == sdl->event.key.keysym.scancode))
-				sdl->run_main = 0;
-		}
-	}
-	return ;
+	(void)(block1);
+	if (!check_str_to_double(block4))
+		return (FALSE);
+	return (TRUE);
 }

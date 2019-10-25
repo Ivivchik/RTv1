@@ -6,7 +6,7 @@
 /*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 01:13:18 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/22 08:38:45 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/25 07:01:45 by gwaymar-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,8 @@ t_vec3		normal_cone(t_vec3 p, int i, t_sdl *sdl)
 	t_cone	cone;
 	double	rad;
 
-	rad = cone.ang * PI / 180.0;
 	cone = get_con(sdl->obj[i]->type);
+	rad = cone.ang * PI / 180.0;
 	normal = vec_op_sub(p, cone.center);
 	side_len = sqrt(vec_dot(normal, normal));
 	side_len /= cos(rad);
