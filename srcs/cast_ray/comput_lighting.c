@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 03:08:11 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/27 19:18:42 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/27 19:40:26 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ double			computer_lighting(t_vec3 p, t_vec3 n, t_sdl *rt, t_vec3 v)
 	while (++k < rt->nbrs.num_lig)
 	{
 		me.l = l[k];
+		if (l[k].intens + rt->intens > 1)
+			ft_print_error_exit(&ft_putendl, "Error, incorrect intens");
 		if (calc_shadow(me, rt))
 			continue;
 		calc_blesk(me, rt);

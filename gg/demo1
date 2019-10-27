@@ -1,4 +1,4 @@
-camera 0,-10,-5 0,0,0
-light 0,0,-10 0.3
-ambient 0.2
-sphere 0,0,0 2 10 255,-10,50
+camera 0,10,0 0,0,0
+light 0,0,-10 1
+ambient 0.1
+sphere 0,0,0 2 1000 255,10,50
