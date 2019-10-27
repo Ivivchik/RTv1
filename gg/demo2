@@ -1,4 +1,4 @@
-camera 0,0,-10 0,0,0
-light 17,0,-20 0.4
-ambient 0.2
-cylindre 0,0,0 0,1,0 1.6 10 0,250,250
+camera 0,0,10 0,0,1
+light 17,0,-20 1
+ambient 0.0
+cylindre 0,0,0 0,1,0 1.6 500 0,250,250

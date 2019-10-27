@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   comput_lighting.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/19 03:08:11 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/25 05:11:56 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/27 19:18:42 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,9 @@ double			computer_lighting(t_vec3 p, t_vec3 n, t_sdl *rt, t_vec3 v)
 	while (++k < rt->nbrs.num_lig)
 	{
 		me.l = l[k];
-		if (l[k].intens > 0 && l[k].intens <= 1)
-		{
-			if (calc_shadow(me, rt))
-				continue;
-			calc_blesk(me, rt);
-		}
-		else
-			ft_print_error_exit(&ft_putendl, "Error, incorrect intens");
+		if (calc_shadow(me, rt))
+			continue;
+		calc_blesk(me, rt);
 	}
 	rt->intens = (rt->intens < 0) ? 0 : rt->intens;
 	rt->intens = (rt->intens > 1) ? 1 : rt->intens;

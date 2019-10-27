@@ -6,7 +6,7 @@
 /*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/13 21:08:46 by hkuhic            #+#    #+#             */
-/*   Updated: 2019/10/22 17:34:58 by hkuhic           ###   ########.fr       */
+/*   Updated: 2019/10/27 19:00:59 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,7 @@ t_cylin		*create_null_list_cylinder(int nbr)
 t_cylin		cylin_new(t_cylin pars_cylin)
 {
 	t_cylin		new_cylin;
-	double		blesk;
 
-	blesk = 250;
 	new_cylin.center = pars_cylin.center;
 	new_cylin.radius = pars_cylin.radius;
 	new_cylin.blesk = pars_cylin.blesk;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   camera.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: gwaymar- <gwaymar-@student.42.fr>          +#+  +:+       +#+        */
+/*   By: hkuhic <hkuhic@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/04 03:19:39 by gwaymar-          #+#    #+#             */
-/*   Updated: 2019/10/19 02:47:05 by gwaymar-         ###   ########.fr       */
+/*   Updated: 2019/10/27 19:12:31 by hkuhic           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,13 @@ static t_vec3	get_dir(t_vec3 camera_position, t_vec3 d, double px, double py)
 
 	k = vec_op_sub(d, camera_position);
 	k = unit_vector(k);
-	i = vec_cross(k, vec_new(0.0, 1.0, 0.0));
+	if (k.x == 0 && k.z == 0)
+		if (k.y == -1)
+			i = vec_cross(k, vec_new(0.0, 0.0, -1.0));
+		else
+			i = vec_cross(k, vec_new(0.0, 0.0, 1.0));
+	else
+		i = vec_cross(k, vec_new(0.0, 1.0, 0.0));
 	i = unit_vector(i);
 	j = vec_cross(i, k);
 	dir_out = vec_new(px * i.x + py * j.x + X_LINZE * k.x,
